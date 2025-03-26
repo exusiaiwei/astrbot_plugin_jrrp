@@ -21,7 +21,7 @@ class MyPlugin(Star):
             message_str = "人品不错，今天的运势很好哦！"
         else:
             message_str = "人品爆发，今天的运势非常好！"
-        yield event.plain_result(f"{user_name}, 你今天的人品是{rp}, {message_str}")
+        yield event.plain_result(f"{group_id}，你今天的人品是{rp}，{message_str}")
 
     async def terminate(self):
         '''可选择实现 terminate 函数，当插件被卸载/停用时会调用。'''
