@@ -2,7 +2,8 @@ from astrbot.api.event import filter, AstrMessageEvent, MessageEventResult
 from astrbot.api.star import Context, Star, register
 from astrbot.api import logger
 import random
-import datatime
+import datetime
+
 @register("jrrp", "exusiaiwei", "一个简单的人品插件", "1.0.0")
 class MyPlugin(Star):
     def __init__(self, context: Context):
