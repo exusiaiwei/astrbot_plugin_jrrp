@@ -2,6 +2,7 @@ from astrbot.api.event import filter, AstrMessageEvent, MessageEventResult
 from astrbot.api.star import Context, Star, register
 from astrbot.api import logger
 import random
+import datatime
 @register("jrrp", "exusiaiwei", "一个简单的人品插件", "1.0.0")
 class MyPlugin(Star):
     def __init__(self, context: Context):
@@ -12,6 +13,10 @@ class MyPlugin(Star):
     async def jrrp(self, event: AstrMessageEvent):
         '''这是一个 hello world 指令''' # 这是 handler 的描述，将会被解析方便用户了解插件内容。建议填写。
         user_name = event.get_sender_name()
+        utc_8 = datetime.datetime.utcnow() + datetime.timedelta(hours=8)
+        date_str = utc_8.strftime("/%y/%m%d")
+        seed = hash(date_str + user_name)
+        random.seed(seed)
         rp = random.randint(1, 100)
         if rp <= 50:
             message_str = "人品不佳，今天的运势不太好哦！"
