@@ -4,7 +4,6 @@ from astrbot.api import logger
 import random
 from datetime import datetime
 from zoneinfo import ZoneInfo
-
 @register("jrrp", "exusiaiwei", "一个简单的人品插件", "1.1.0")
 class MyPlugin(Star):
     def __init__(self, context: Context):
@@ -17,7 +16,6 @@ class MyPlugin(Star):
             (81, 100): "欧皇降临！今天你就是天选之人，无敌了！👑"
         }
 
-
     # 注册指令的装饰器。指令名为 helloworld。注册成功后，发送 `/helloworld` 就会触发这个指令，并回复 `你好, {user_name}!`
     @filter.command("jrrp")
     async def jrrp(self, event: AstrMessageEvent):
@@ -27,8 +25,13 @@ class MyPlugin(Star):
         date_str = utc_8.strftime("/%y/%m%d")
         userseed = hash(date_str + user_name)
         random.seed(userseed)
-        rp = random.randint(1, 100)
-        rp_modified = min(int(rp ** 0.5) * 10, 100)  # 人品值的平方根乘以10，最大值为100
+
+        # 使用加权随机 - 高分概率更大
+        weights = [1, 2, 3, 2, 1]  # 越高分权重越大
+        ranges = [(1, 20), (21, 40), (41, 60), (61, 80), (81, 100)]
+
+        selected_range = random.choices(ranges, weights=weights, k=1)[0]
+        rp_modified = random.randint(selected_range[0], selected_range[1])
         message_str = next(
             (
                 desc
