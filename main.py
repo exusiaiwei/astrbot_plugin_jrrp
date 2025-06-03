@@ -4,7 +4,7 @@ from astrbot.api import logger
 import random
 from datetime import datetime
 from zoneinfo import ZoneInfo
-@register("jrrp", "exusiaiwei", "一个简单的人品插件", "1.1.0")
+@register("jrrp", "exusiaiwei", "一个简单的人品插件", "1.2.0")
 class MyPlugin(Star):
     def __init__(self, context: Context):
         super().__init__(context)
