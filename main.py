@@ -27,8 +27,8 @@ class MyPlugin(Star):
         random.seed(userseed)
 
         # 使用加权随机 - 高分概率更大
-        weights = [1, 2, 3, 2, 1]  # 越高分权重越大
-        ranges = [(1, 20), (21, 40), (41, 60), (61, 80), (81, 100)]
+        weights = [1, 3, 3, 1]  # 越高分权重越大
+        ranges = [(1, 20), (21, 50), (51, 80), (81, 100)]
 
         selected_range = random.choices(ranges, weights=weights, k=1)[0]
         rp = random.randint(selected_range[0], selected_range[1])
