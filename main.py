@@ -31,12 +31,12 @@ class MyPlugin(Star):
         ranges = [(1, 20), (21, 40), (41, 60), (61, 80), (81, 100)]
 
         selected_range = random.choices(ranges, weights=weights, k=1)[0]
-        rp_modified = random.randint(selected_range[0], selected_range[1])
+        rp = random.randint(selected_range[0], selected_range[1])
         message_str = next(
             (
                 desc
                 for (low, high), desc in self.fortune_descriptions.items()
-                if low <= rp_modified <= high
+                if low <= rp <= high
             ),
             "今天的运势未知，请自行判断！",
         )
