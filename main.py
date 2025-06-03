@@ -10,12 +10,13 @@ class MyPlugin(Star):
     def __init__(self, context: Context):
         super().__init__(context)
         self.fortune_descriptions = {
-            (1, 10): "今天是不太顺利的一天，建议多加小心！",
-            (11, 30): "今天的运势一般，适合做一些小事情！",
-            (31, 60): "今天的运势不错，可以尝试一些新的事物！",
-            (61, 80): "今天的运势很好，适合做一些大事情！",
-            (81, 100): "今天的运势非常好，万事如意！"
+            (1, 10): "人品已欠费停机，建议今天就躺平吧！🥲",
+            (11, 30): "普通的一天，像白开水一样平淡无奇~",
+            (31, 60): "运气不错哦，可以试试抽卡或者告白什么的！✨",
+            (61, 80): "今日锦鲤附体！适合做重要决定和冒险！🐟",
+            (81, 100): "欧皇降临！今天你就是天选之人，无敌了！👑"
         }
+
 
     # 注册指令的装饰器。指令名为 helloworld。注册成功后，发送 `/helloworld` 就会触发这个指令，并回复 `你好, {user_name}!`
     @filter.command("jrrp")
@@ -27,8 +28,15 @@ class MyPlugin(Star):
         userseed = hash(date_str + user_name)
         random.seed(userseed)
         rp = random.randint(1, 100)
-        message_str = next((desc for (low, high), desc in self.fortune_descriptions.items() if low <= rp <= high), "今天的运势未知，请自行判断！")
-
+        rp_modified = min(int(rp ** 0.5) * 10, 100)  # 人品值的平方根乘以10，最大值为100
+        message_str = next(
+            (
+                desc
+                for (low, high), desc in self.fortune_descriptions.items()
+                if low <= rp_modified <= high
+            ),
+            "今天的运势未知，请自行判断！",
+        )
 
         yield event.plain_result(f"{user_name}，你今天的人品是{rp}，{message_str}")
 
